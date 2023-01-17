@@ -9,8 +9,10 @@ const allCategories = ["all", ...new Set(data.map((i) => i.category))];
 const Menu = () => {
   const [foodData, setFoodData] = useState(data);
   const [categories, setCategories] = useState(allCategories);
+  const [activeBtn, setActiveBtn] = useState('all')
 
   const filterFood = (category) => {
+    setActiveBtn(category)
     if (category === "all") {
       setFoodData(data);
       return;
@@ -18,12 +20,12 @@ const Menu = () => {
     const newFoodData = data.filter((item) => item.category === category);
     setFoodData(newFoodData);
   };
-
+  
   return (
     <div className="container">
       <div className="heading">our menu</div>
 
-      <Categories filterFood={filterFood} categories={categories} />
+      <Categories filterFood={filterFood} categories={categories} activeBtn={activeBtn} />
       <Foods foodData={foodData} />
     </div>
   );
